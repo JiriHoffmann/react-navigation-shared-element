@@ -39,17 +39,18 @@ export default () => (
         name="Detail"
         component={PressableDetailWithMoreScreen}
         initialParams={{ item: items[0] }}
-        sharedElements={(route, otherRoute, showing) => {
+        sharedElements={(fromRoute, toRoute, showing) => {
           let item = undefined;
 
-          if (!showing && route.name == otherRoute.name) {
+          if (!showing && toRoute.name == fromRoute.name) {
             // we are naviating backwards
             // to the same screen, so pick the params from the
             // otherRoute (aka "from route")
-            item = otherRoute.params.item;
+            item = toRoute.params.item;
           } else {
-            item = route.params.item;
+            item = fromRoute.params.item;
           }
+
           return [
             { id: `${item.id}.image` },
             { id: `${item.id}.title`, animation: "fade" },
